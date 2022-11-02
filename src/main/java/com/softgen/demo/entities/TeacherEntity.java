@@ -3,6 +3,7 @@ package com.softgen.demo.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,6 +17,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Table(
     name = "teacher",
     uniqueConstraints = {@UniqueConstraint(columnNames = {"personal_number"}),

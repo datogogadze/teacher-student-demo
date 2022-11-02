@@ -42,7 +42,7 @@ public class StudentController {
 
   @GetMapping("/last_name/{lastName}")
   public StudentListResponse getStudentByLastName(@PathVariable String lastName) {
-    return studentService.getStudentByFirstName(lastName);
+    return studentService.getStudentByLastName(lastName);
   }
 
   // ალბათ უკეთესი იქნებოდა თუ იმეილს და პირად ნომერს ურლ-ში არ გამოვაჩანდით და Post რექუესთს

@@ -113,6 +113,7 @@ public class StudentServiceImpl implements StudentService {
       throw new EntityNotFoundException(
           String.format("Student with this id doesn't exist: %s", studentDto.getId()));
     }
+    
     StudentEntity studentEntity = entity.get();
 
     // თუ იმეილი ან პირადი ნომერი იცვლება ვამოწმებთ სხვა სტუდენტის მონაცემებს ხომ არ ემთხვევა

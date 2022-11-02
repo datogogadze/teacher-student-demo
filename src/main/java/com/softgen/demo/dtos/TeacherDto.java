@@ -2,6 +2,7 @@ package com.softgen.demo.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDate;
 import java.util.UUID;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -12,8 +13,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 import org.springframework.validation.annotation.Validated;
 
 @Validated
@@ -21,7 +20,7 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StudentDto {
+public class TeacherDto {
 
   @JsonProperty("id")
   private UUID id;
@@ -51,5 +50,4 @@ public class StudentDto {
   @JsonProperty("birthday")
   @JsonFormat(pattern = "dd-MM-yyyy")
   private LocalDate birthday;
-
 }
