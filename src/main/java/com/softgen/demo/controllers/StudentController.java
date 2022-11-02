@@ -4,9 +4,11 @@ import com.softgen.demo.dtos.StudentDto;
 import com.softgen.demo.dtos.responses.StudentIdResponse;
 import com.softgen.demo.dtos.responses.StudentListResponse;
 import com.softgen.demo.services.StudentService;
+import java.time.LocalDate;
 import java.util.UUID;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,28 +35,35 @@ public class StudentController {
     return studentService.getStudentById(id);
   }
 
-  @GetMapping("/first/{firstName}")
+  @GetMapping("/first_name/{firstName}")
   public StudentListResponse getStudentByFirstName(@PathVariable String firstName) {
     return studentService.getStudentByFirstName(firstName);
   }
 
-  @GetMapping("/last/{lastName}")
+  @GetMapping("/last_name/{lastName}")
   public StudentListResponse getStudentByLastName(@PathVariable String lastName) {
     return studentService.getStudentByFirstName(lastName);
   }
 
-  // ალბათ უკეთესი იქნებოდა თუ იმეილს და პირად ნომერს ურლ-ში არ გამოვაჩანდით და პოსტ რექუესთს
+  // ალბათ უკეთესი იქნებოდა თუ იმეილს და პირად ნომერს ურლ-ში არ გამოვაჩანდით და Post რექუესთს
   // გამოვიყენებდით, რადგან სენსიტიური ინფორცმაციაა, თუმცა სიმარტივისთვის ამ შემთხვევაში
-  // ვამჯობინე ყველა პარამეტრით წამოღება მსგავსი ყოფილიყო და აიდის, სახელის, გვარის მსგავსად გეთ
+  // ვამჯობინე ყველა პარამეტრით წამოღება მსგავსი ყოფილიყო და აიდის, სახელის, გვარის მსგავსად Get
   // რექუესთი გამოვიყენე.
-  @GetMapping("/email/{email}")
+  @GetMapping("/email/{email:.+}")
   public StudentDto getStudentByEmail(@PathVariable String email) {
     return studentService.getStudentByEmail(email);
   }
 
-  @GetMapping("/pn/{personalNumber}")
+  @GetMapping("/personal_number/{personalNumber}")
   public StudentDto getStudentByPersonalNumber(@PathVariable String personalNumber) {
     return studentService.getStudentByPersonalNumber(personalNumber);
+  }
+
+  @GetMapping("/birthday/{birthday}")
+  public StudentListResponse getStudentByBirthDay(
+      @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate birthday
+                                                 ) {
+    return studentService.getStudentByBirthday(birthday);
   }
 
   @PostMapping
@@ -62,8 +71,12 @@ public class StudentController {
     return studentService.createStudent(studentDto);
   }
 
-  @PutMapping
-  public StudentDto updateStudent(@RequestBody @Valid StudentDto studentDto) {
+  // Patch რექუესთის გაკეთებაც შეიძლებოდა, მაგრამ სიმარტივისთვის იყოს Put.
+  @PutMapping("/{id}")
+  public StudentDto updateStudent(@PathVariable("id") UUID id,
+                                  @RequestBody @Valid StudentDto studentDto
+                                 ) {
+    studentDto.setId(id);
     return studentService.updateStudent(studentDto);
   }
 

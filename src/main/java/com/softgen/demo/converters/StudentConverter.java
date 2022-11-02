@@ -18,6 +18,7 @@ public class StudentConverter {
 
   public static StudentEntity toEntity(StudentDto dto) {
     return StudentEntity.builder()
+                        .id(dto.getId())
                         .firstName(dto.getFirstName())
                         .lastName(dto.getLastName())
                         .personalNumber(dto.getPersonalNumber())

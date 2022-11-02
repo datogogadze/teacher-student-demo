@@ -11,10 +11,10 @@ import org.springframework.data.jpa.repository.Query;
 public interface StudentRepository extends JpaRepository<StudentEntity, UUID> {
 
   @Query("SELECT student FROM StudentEntity student WHERE student.firstName = ?1")
-  List<StudentEntity> findByFirstName(String firstName);
+  List<StudentEntity> findAllByFirstName(String firstName);
 
   @Query("SELECT student FROM StudentEntity student WHERE student.lastName = ?1")
-  List<StudentEntity> findByLastName(String lastName);
+  List<StudentEntity> findAllByLastName(String lastName);
 
   @Query("SELECT student FROM StudentEntity student WHERE student.personalNumber = ?1")
   Optional<StudentEntity> findByPersonalNumber(String personalNumber);

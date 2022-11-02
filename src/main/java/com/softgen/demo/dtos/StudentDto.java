@@ -22,7 +22,6 @@ import org.springframework.validation.annotation.Validated;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 public class StudentDto {
 
   @JsonProperty("id")
