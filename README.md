@@ -1,2 +1,3 @@
 # teacher-student-demo
-Project for interview
+
+Api დოკუმენტაციისთვის გამოყენებულია swagger ui - localhost:8080/docs

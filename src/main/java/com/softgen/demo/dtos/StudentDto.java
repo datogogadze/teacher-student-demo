@@ -27,14 +27,17 @@ public class StudentDto {
   @JsonProperty("id")
   private UUID id;
 
+  @NotNull
   @JsonProperty("first_name")
   @Size(min = 2, max = 64)
   private String firstName;
 
+  @NotNull
   @JsonProperty("last_name")
   @Size(min = 2, max = 64)
   private String lastName;
 
+  @NotNull
   @JsonProperty("personal_number")
   @Pattern(regexp = "^\\d{11}$", message = "should be 11 digits")
   private String personalNumber;
