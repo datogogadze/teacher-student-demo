@@ -20,15 +20,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   private ResponseEntity<Object> toResponse(ApiError apiError, Exception ex,
                                             HttpHeaders headers, WebRequest request
                                            ) {
-    return handleExceptionInternal(
-        ex, apiError, headers, apiError.getStatus(), request);
+    return new ResponseEntity<>(apiError, headers, apiError.getStatus());
   }
 
   @ExceptionHandler(value = {EntityNotFoundException.class})
   protected ResponseEntity<Object> handleEntityNotFoundException(RuntimeException ex,
                                                                  WebRequest request
                                                                 ) {
-    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Not found",
+    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Not found",
                                      ex.getLocalizedMessage());
     return toResponse(apiError, ex, new HttpHeaders(), request);
   }
@@ -37,7 +36,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleEntityExistsException(RuntimeException ex,
                                                                WebRequest request
                                                               ) {
-    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Already exists",
+    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Already exists",
                                      ex.getLocalizedMessage());
     return toResponse(apiError, ex, new HttpHeaders(), request);
   }
@@ -46,7 +45,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleRuntimeException(RuntimeException ex,
                                                           WebRequest request
                                                          ) {
-    ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Runtime exception",
+    ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Runtime exception",
                                      "Internal server error");
     return toResponse(apiError, ex, new HttpHeaders(), request);
   }
@@ -60,13 +59,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                                                                ) {
     ApiError apiError = null;
     for (FieldError error : ex.getBindingResult().getFieldErrors()) {
-      apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation error",
+      apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Validation error",
                               "\"" + error.getField() + "\" " + error.getDefaultMessage());
       break;
     }
     if (apiError != null) {
       for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
-        apiError = new ApiError(HttpStatus.BAD_REQUEST, "Validation error",
+        apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Validation error",
                                 "\"" + error.getObjectName() + "\"" + error.getDefaultMessage());
         break;
       }
@@ -77,7 +76,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
                                                       HttpStatus status, WebRequest request
                                                      ) {
-    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, "Type mismatch",
+    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Type mismatch",
                                      ex.getLocalizedMessage());
     return toResponse(apiError, ex, new HttpHeaders(), request);
   }
