@@ -1,0 +1,699 @@
+{
+	"info": {
+		"_postman_id": "2dc0caec-f72e-483c-b787-9fcd971c3429",
+		"name": "softgen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13330141"
+	},
+	"item": [
+		{
+			"name": "Get students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/id/0e381647-1b16-4ae9-93b7-f13faf336a80",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"id",
+						"0e381647-1b16-4ae9-93b7-f13faf336a80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create student",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"student2\",\n    \"last_name\": \"student2\",\n    \"personal_number\": \"12345678902\",\n    \"email\": \"student2@mail.com\",\n    \"birthday\": \"1990-02-10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/students",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete student",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/02c9a9e2-cbb4-4f27-b0b6-6c68f16552f7",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"02c9a9e2-cbb4-4f27-b0b6-6c68f16552f7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get students by first name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/first_name/ori",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"first_name",
+						"ori"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get students by last name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/last_name/ori",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"last_name",
+						"ori"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/email/mail3@mail.com",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"email",
+						"mail3@mail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student by personal number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/personal_number/12445178902",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"personal_number",
+						"12445178902"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update student",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"UPDATEEE\",\n    \"last_name\": \"UPDATEEE\",\n    \"personal_number\": \"12445178901\",\n    \"email\": \"update@mail.com\",\n    \"birthday\": \"1991-02-10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/students/0e381647-1b16-4ae9-93b7-f13faf336a80",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"0e381647-1b16-4ae9-93b7-f13faf336a80"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get students by birthday",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/birthday/1991-15-02",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"birthday",
+						"1991-15-02"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teachers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create teacher",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"nameee\",\n  \"last_name\": \"lnameee\",\n  \"personal_number\": \"04263282450\",\n  \"email\": \"wef@wfwef.ergerg\",\n  \"birthday\": \"2022-11-04\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/teachers",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teacher by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/id/8b6cfe3c-0367-4eb1-9bfa-c3092fe98b22",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"id",
+						"8b6cfe3c-0367-4eb1-9bfa-c3092fe98b22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teachers by first name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/first_name/teacher1",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"first_name",
+						"teacher1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teachers by last name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/last_name/teacher1lastname",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"last_name",
+						"teacher1lastname"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teacher by email",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/email/teacher@mail.com",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"email",
+						"teacher@mail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teacher by personal number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/personal_number/12445178903",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"personal_number",
+						"12445178903"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teachers by birthday",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/birthday/2000-02-10",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"birthday",
+						"2000-02-10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update teacher",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"aaa\",\n    \"last_name\": \"teacher1lastname\",\n    \"personal_number\": \"12445178903\",\n    \"email\": \"teacher@mail.com\",\n    \"birthday\": \"1981-02-10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/teachers/4f29cb6e-3db8-42e1-8be8-ee86a10a826a",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"4f29cb6e-3db8-42e1-8be8-ee86a10a826a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete teacher",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/8b6cfe3c-0367-4eb1-9bfa-c3092fe98b22",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"8b6cfe3c-0367-4eb1-9bfa-c3092fe98b22"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create course",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"course3\",\n    \"number\": 3\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/courses",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add student to course",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{server}}/courses/afdca26c-90f9-4b0e-ab01-a09312673beb/student/2c3687dd-41ac-440e-8f72-5b9c8a39f5ae",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"afdca26c-90f9-4b0e-ab01-a09312673beb",
+						"student",
+						"2c3687dd-41ac-440e-8f72-5b9c8a39f5ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update course",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"course1\",\n    \"number\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/courses/9f245758-a5cc-409d-8c7f-8c053c1802b3",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"9f245758-a5cc-409d-8c7f-8c053c1802b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete student from course",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/9f245758-a5cc-409d-8c7f-8c053c1802b3/student/02c9a9e2-cbb4-4f27-b0b6-6c68f16552f7",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"9f245758-a5cc-409d-8c7f-8c053c1802b3",
+						"student",
+						"02c9a9e2-cbb4-4f27-b0b6-6c68f16552f7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a course",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/54d34db5-de70-484b-bcaa-f774d47da651",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"54d34db5-de70-484b-bcaa-f774d47da651"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add teacher to course",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/f5089d7b-5b7d-4d79-b906-101a37c7542e/teacher/4dd96288-9ff8-497a-a5cf-0b08d2b2b8be",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"f5089d7b-5b7d-4d79-b906-101a37c7542e",
+						"teacher",
+						"4dd96288-9ff8-497a-a5cf-0b08d2b2b8be"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get course students",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/afdca26c-90f9-4b0e-ab01-a09312673beb/students",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"afdca26c-90f9-4b0e-ab01-a09312673beb",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get course teachers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/f5089d7b-5b7d-4d79-b906-101a37c7542e/teachers",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"f5089d7b-5b7d-4d79-b906-101a37c7542e",
+						"teachers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get student courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/students/02c9a9e2-cbb4-4f27-b0b6-6c68f16552f7/courses",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"students",
+						"02c9a9e2-cbb4-4f27-b0b6-6c68f16552f7",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get teachers courses",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/teachers/4dd96288-9ff8-497a-a5cf-0b08d2b2b8be/courses",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"teachers",
+						"4dd96288-9ff8-497a-a5cf-0b08d2b2b8be",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get course",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/id/afdca26c-90f9-4b0e-ab01-a09312673beb",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"id",
+						"afdca26c-90f9-4b0e-ab01-a09312673beb"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get courses by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/name/course1",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"name",
+						"course1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get course by number",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/courses/number/1",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"courses",
+						"number",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
