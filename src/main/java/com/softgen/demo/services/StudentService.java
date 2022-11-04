@@ -1,11 +1,11 @@
 package com.softgen.demo.services;
 
 import com.softgen.demo.dtos.StudentDto;
+import com.softgen.demo.dtos.responses.CourseListResponse;
 import com.softgen.demo.dtos.responses.StudentIdResponse;
 import com.softgen.demo.dtos.responses.StudentListResponse;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 public interface StudentService {
@@ -29,5 +29,7 @@ public interface StudentService {
   StudentIdResponse deleteStudentById(UUID id);
 
   StudentDto updateStudent(StudentDto studentDto);
+
+  CourseListResponse getStudentCourses(UUID studentId);
 
 }

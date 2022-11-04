@@ -1,6 +1,7 @@
 package com.softgen.demo.controllers;
 
 import com.softgen.demo.dtos.StudentDto;
+import com.softgen.demo.dtos.responses.CourseListResponse;
 import com.softgen.demo.dtos.responses.StudentIdResponse;
 import com.softgen.demo.dtos.responses.StudentListResponse;
 import com.softgen.demo.services.StudentService;
@@ -31,17 +32,17 @@ public class StudentController {
   }
 
   @GetMapping("/id/{id}")
-  public StudentDto getStudentById(@PathVariable UUID id) {
+  public StudentDto getStudentById(@PathVariable("id") UUID id) {
     return studentService.getStudentById(id);
   }
 
   @GetMapping("/first_name/{firstName}")
-  public StudentListResponse getStudentByFirstName(@PathVariable String firstName) {
+  public StudentListResponse getStudentByFirstName(@PathVariable("firstName") String firstName) {
     return studentService.getStudentByFirstName(firstName);
   }
 
   @GetMapping("/last_name/{lastName}")
-  public StudentListResponse getStudentByLastName(@PathVariable String lastName) {
+  public StudentListResponse getStudentByLastName(@PathVariable("lastName") String lastName) {
     return studentService.getStudentByLastName(lastName);
   }
 
@@ -50,18 +51,20 @@ public class StudentController {
   // ვამჯობინე ყველა პარამეტრით წამოღება მსგავსი ყოფილიყო და აიდის, სახელის, გვარის მსგავსად Get
   // რექუესთი გამოვიყენე.
   @GetMapping("/email/{email:.+}")
-  public StudentDto getStudentByEmail(@PathVariable String email) {
+  public StudentDto getStudentByEmail(@PathVariable("email") String email) {
     return studentService.getStudentByEmail(email);
   }
 
   @GetMapping("/personal_number/{personalNumber}")
-  public StudentDto getStudentByPersonalNumber(@PathVariable String personalNumber) {
+  public StudentDto getStudentByPersonalNumber(
+      @PathVariable("personalNumber") String personalNumber
+                                              ) {
     return studentService.getStudentByPersonalNumber(personalNumber);
   }
 
   @GetMapping("/birthday/{birthday}")
   public StudentListResponse getStudentByBirthDay(
-      @PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate birthday
+      @PathVariable("birthday") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate birthday
                                                  ) {
     return studentService.getStudentByBirthday(birthday);
   }
@@ -81,8 +84,13 @@ public class StudentController {
   }
 
   @DeleteMapping("/{id}")
-  public StudentIdResponse deleteStudentById(@PathVariable UUID id) {
+  public StudentIdResponse deleteStudentById(@PathVariable("id") UUID id) {
     return studentService.deleteStudentById(id);
+  }
+
+  @GetMapping("/{id}/courses")
+  public CourseListResponse getStudentCourses(@PathVariable("id") UUID studentId) {
+    return studentService.getStudentCourses(studentId);
   }
 
 }

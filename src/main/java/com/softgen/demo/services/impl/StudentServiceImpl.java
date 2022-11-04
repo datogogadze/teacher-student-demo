@@ -1,9 +1,14 @@
 package com.softgen.demo.services.impl;
 
+import com.softgen.demo.converters.CourseConverter;
 import com.softgen.demo.converters.StudentConverter;
+import com.softgen.demo.converters.TeacherConverter;
 import com.softgen.demo.dtos.StudentDto;
+import com.softgen.demo.dtos.responses.CourseListResponse;
 import com.softgen.demo.dtos.responses.StudentIdResponse;
+import com.softgen.demo.dtos.responses.TeacherListResponse;
 import com.softgen.demo.entities.StudentEntity;
+import com.softgen.demo.repositories.CourseRepository;
 import com.softgen.demo.repositories.StudentRepository;
 import com.softgen.demo.dtos.responses.StudentListResponse;
 import com.softgen.demo.services.StudentService;
@@ -22,6 +27,7 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
 
   private final StudentRepository studentRepository;
+  private final CourseRepository courseRepository;
 
   @Override
   public StudentListResponse getStudents() {
@@ -96,12 +102,22 @@ public class StudentServiceImpl implements StudentService {
     return StudentConverter.toDto(entityWithId);
   }
 
+  private void removeStudentFromCourses(StudentEntity student) {
+    for (var course : student.getCourses()) {
+      course.removeStudent(student);
+      courseRepository.save(course);
+    }
+  }
+
   @Override
   public StudentIdResponse deleteStudentById(UUID id) {
-    if (studentRepository.findById(id).isEmpty()) {
+    var found = studentRepository.findById(id);
+    if (found.isEmpty()) {
       throw new EntityNotFoundException(
           String.format("Student with this id doesn't exist: %s", id));
     }
+    // სტუდენტების წაშლა ჯგუფებიდან
+    removeStudentFromCourses(found.get());
     studentRepository.deleteById(id);
     return new StudentIdResponse(id);
   }
@@ -113,12 +129,12 @@ public class StudentServiceImpl implements StudentService {
       throw new EntityNotFoundException(
           String.format("Student with this id doesn't exist: %s", studentDto.getId()));
     }
-    
+
     StudentEntity studentEntity = entity.get();
 
     // თუ იმეილი ან პირადი ნომერი იცვლება ვამოწმებთ სხვა სტუდენტის მონაცემებს ხომ არ ემთხვევა
-    // რადგან ეს ფილდები უნიკალური უნდა იყოს და ბაზიდან ერორი დაბრუნდება ხომ არ ემთხვევეა,
-    // შეიძლებოდა საერთოდ არ ამ ფილდების შეცვლის უფლება
+    // რადგან ეს ფილდები უნიკალური უნდა იყოს და ბაზიდან ერორი დაბრუნდება, შეიძლებოდა საერთოდ არ
+    // მიგვეცა ამ ფილდების შეცვლის უფლება
     if (!Objects.equals(studentEntity.getEmail(), studentDto.getEmail())) {
       if (studentRepository.findByEmail(studentDto.getEmail()).isPresent()) {
         throw new EntityExistsException(
@@ -135,5 +151,20 @@ public class StudentServiceImpl implements StudentService {
     StudentEntity save = studentRepository.save(StudentConverter.toEntity(studentDto));
     return StudentConverter.toDto(save);
   }
+
+  @Override
+  public CourseListResponse getStudentCourses(UUID studentId) {
+    var studentEntity = studentRepository.findById(studentId);
+    if (studentEntity.isEmpty()) {
+      throw new EntityNotFoundException(
+          String.format("Student with this id doesn't exist: %s", studentId));
+    }
+    return new CourseListResponse(
+        studentEntity.get().getCourses()
+                     .stream()
+                     .map(CourseConverter::toDto)
+                     .collect(Collectors.toList()));
+  }
+
 
 }

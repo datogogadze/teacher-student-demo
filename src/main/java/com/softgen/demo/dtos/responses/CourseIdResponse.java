@@ -1,7 +1,6 @@
 package com.softgen.demo.dtos.responses;
 
-import com.softgen.demo.dtos.TeacherDto;
-import java.util.List;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherListResponse {
+public class CourseIdResponse {
 
-  private List<TeacherDto> teachers;
+  private UUID course_id;
   
 }

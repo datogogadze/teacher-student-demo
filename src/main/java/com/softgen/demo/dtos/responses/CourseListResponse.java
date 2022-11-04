@@ -1,6 +1,6 @@
 package com.softgen.demo.dtos.responses;
 
-import com.softgen.demo.dtos.TeacherDto;
+import com.softgen.demo.dtos.CourseDto;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeacherListResponse {
+public class CourseListResponse {
 
-  private List<TeacherDto> teachers;
-  
+  private List<CourseDto> courses;
+
 }

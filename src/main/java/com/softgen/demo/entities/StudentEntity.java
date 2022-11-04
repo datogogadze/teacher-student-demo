@@ -1,10 +1,13 @@
 package com.softgen.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -12,7 +15,8 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity(name = "StudentEntity")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -67,8 +71,7 @@ public class StudentEntity {
   @DateTimeFormat(pattern = "dd-MM-yyyy")
   private LocalDate birthday;
 
-  @ManyToMany(mappedBy = "students",
-              fetch = FetchType.LAZY)
+  @ManyToMany(mappedBy = "students")
   Set<CourseEntity> courses;
 
 }

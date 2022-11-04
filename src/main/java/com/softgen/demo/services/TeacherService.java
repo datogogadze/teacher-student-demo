@@ -1,6 +1,7 @@
 package com.softgen.demo.services;
 
 import com.softgen.demo.dtos.TeacherDto;
+import com.softgen.demo.dtos.responses.CourseListResponse;
 import com.softgen.demo.dtos.responses.TeacherIdResponse;
 import com.softgen.demo.dtos.responses.TeacherListResponse;
 import java.time.LocalDate;
@@ -27,5 +28,7 @@ public interface TeacherService {
   TeacherIdResponse deleteTeacherById(UUID id);
 
   TeacherDto updateTeacher(TeacherDto teacherDto);
+
+  CourseListResponse getTeacherCourses(UUID teacherId);
 
 }
