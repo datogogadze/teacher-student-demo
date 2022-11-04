@@ -2,11 +2,9 @@ package com.softgen.demo.services.impl;
 
 import com.softgen.demo.converters.CourseConverter;
 import com.softgen.demo.converters.StudentConverter;
-import com.softgen.demo.converters.TeacherConverter;
 import com.softgen.demo.dtos.StudentDto;
 import com.softgen.demo.dtos.responses.CourseListResponse;
 import com.softgen.demo.dtos.responses.StudentIdResponse;
-import com.softgen.demo.dtos.responses.TeacherListResponse;
 import com.softgen.demo.entities.StudentEntity;
 import com.softgen.demo.repositories.CourseRepository;
 import com.softgen.demo.repositories.StudentRepository;
@@ -21,8 +19,10 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.stream.Collectors;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class StudentServiceImpl implements StudentService {
 

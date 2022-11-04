@@ -6,6 +6,7 @@ import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -73,10 +74,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     return toResponse(apiError, ex, headers, request);
   }
 
+  @Override
   protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers,
                                                       HttpStatus status, WebRequest request
                                                      ) {
     ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Type mismatch",
+                                     ex.getLocalizedMessage());
+    return toResponse(apiError, ex, new HttpHeaders(), request);
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+                                                                HttpHeaders headers,
+                                                                HttpStatus status,
+                                                                WebRequest request
+                                                               ) {
+    ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST.value(), "Not readable",
                                      ex.getLocalizedMessage());
     return toResponse(apiError, ex, new HttpHeaders(), request);
   }

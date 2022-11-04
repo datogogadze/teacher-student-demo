@@ -2,7 +2,6 @@ package com.softgen.demo.exceptions;
 
 import java.time.ZonedDateTime;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
 
 @Data
 public class ApiError {

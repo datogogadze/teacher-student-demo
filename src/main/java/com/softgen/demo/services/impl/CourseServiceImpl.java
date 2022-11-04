@@ -13,7 +13,6 @@ import com.softgen.demo.repositories.CourseRepository;
 import com.softgen.demo.repositories.StudentRepository;
 import com.softgen.demo.repositories.TeacherRepository;
 import com.softgen.demo.services.CourseService;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -21,8 +20,10 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class CourseServiceImpl implements CourseService {
 

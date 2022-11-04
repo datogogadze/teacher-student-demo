@@ -1,10 +1,9 @@
 package com.softgen.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -68,10 +67,10 @@ public class StudentEntity {
       nullable = false,
       columnDefinition = "DATE"
   )
-  @DateTimeFormat(pattern = "dd-MM-yyyy")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthday;
 
   @ManyToMany(mappedBy = "students")
-  Set<CourseEntity> courses;
+  Set<CourseEntity> courses = new HashSet<>();
 
 }

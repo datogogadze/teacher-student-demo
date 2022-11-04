@@ -1,10 +1,9 @@
 package com.softgen.demo.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "TeacherEntity")
@@ -69,9 +67,9 @@ public class TeacherEntity {
       nullable = false,
       columnDefinition = "DATE"
   )
-  @DateTimeFormat(pattern = "dd-MM-yyyy")
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthday;
 
   @ManyToMany(mappedBy = "teachers")
-  Set<CourseEntity> courses;
+  Set<CourseEntity> courses = new HashSet<>();
 }

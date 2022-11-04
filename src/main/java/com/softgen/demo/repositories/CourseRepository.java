@@ -1,7 +1,6 @@
 package com.softgen.demo.repositories;
 
 import com.softgen.demo.entities.CourseEntity;
-import com.softgen.demo.entities.TeacherEntity;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

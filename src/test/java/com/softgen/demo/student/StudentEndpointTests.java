@@ -1,6 +1,8 @@
 package com.softgen.demo.student;
 
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -10,14 +12,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;;
+import com.softgen.demo.dtos.CourseDto;
 import com.softgen.demo.dtos.StudentDto;
+import com.softgen.demo.services.CourseService;
 import com.softgen.demo.services.StudentService;
-import com.softgen.demo.services.impl.StudentServiceImpl;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -36,11 +40,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(OrderAnnotation.class)
 @AutoConfigureMockMvc
+@FixMethodOrder
 @SpringBootTest
 public class StudentEndpointTests {
 
   @Autowired
   private StudentService studentService;
+
+  @Autowired
+  private CourseService courseService;
 
   private ObjectMapper objectMapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
@@ -51,48 +59,73 @@ public class StudentEndpointTests {
                                         .personalNumber("12345678910")
                                         .birthday(LocalDate.now())
                                         .build();
+
+  private StudentDto entityToDelete = StudentDto.builder()
+                                                .firstName("delete")
+                                                .lastName("delete")
+                                                .email("delete@email.com")
+                                                .personalNumber("12345678911")
+                                                .birthday(LocalDate.now())
+                                                .build();
+
+  private StudentDto entityToUpdate = StudentDto.builder()
+                                                .firstName("update")
+                                                .lastName("update")
+                                                .email("update@email.com")
+                                                .personalNumber("12345678912")
+                                                .birthday(LocalDate.now())
+                                                .build();
+
+  private CourseDto courseEntity = CourseDto.builder()
+                                            .name("course1")
+                                            .number(1)
+                                            .build();
+
+  private CourseDto courseToDelete = CourseDto.builder()
+                                              .name("course2")
+                                              .number(2)
+                                              .build();
+
   @Autowired
   MockMvc mockMvc;
 
   @BeforeAll
   public void setUp() {
-    StudentDto createdEntity = studentService.createStudent(entity);
+    var createdEntity = studentService.createStudent(entity);
     entity.setId(createdEntity.getId());
+
+    createdEntity = studentService.createStudent(entityToDelete);
+    entityToDelete.setId(createdEntity.getId());
+
+    createdEntity = studentService.createStudent(entityToUpdate);
+    entityToUpdate.setId(createdEntity.getId());
+
+    CourseDto saved = courseService.createCourse(courseEntity);
+    courseEntity.setId(saved.getId());
+    saved = courseService.createCourse(courseToDelete);
+    courseToDelete.setId(saved.getId());
   }
 
   @Test
-  @Order(1)
   void getAllTest() throws Exception {
     this.mockMvc.perform(
             get("/students")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.students", hasSize(1)))
+                // at least entity and entityToUpdate, maybe entityToDelete too, maybe 4 if
+                // create student test is run first.
+                .andExpect(jsonPath("$.students", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
 
   }
 
   @Test
-  @Order(2)
-  void testCreateFail() throws Exception {
-    this.mockMvc.perform(
-            post("/students")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(entity)))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.status").value(400))
-                .andExpect(jsonPath("$.message").value("Already exists"))
-                .andReturn();
-  }
-
-  @Test
-  @Order(3)
   void testCreate() throws Exception {
     StudentDto entity1 = StudentDto.builder()
                                    .firstName("fname1")
                                    .lastName("lname1")
                                    .email("email1@email.com")
-                                   .personalNumber("12345678912")
+                                   .personalNumber("12345678914")
                                    .birthday(LocalDate.now())
                                    .build();
     this.mockMvc.perform(
@@ -100,12 +133,11 @@ public class StudentEndpointTests {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(entity1)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.first_name").value("fname1"))
+                .andExpect(jsonPath("$.first_name").value(entity1.getFirstName()))
                 .andReturn();
   }
 
   @Test
-  @Order(4)
   void testGetById() throws Exception {
     this.mockMvc.perform(
             get("/students/id/{id}", entity.getId().toString())
@@ -116,7 +148,6 @@ public class StudentEndpointTests {
   }
 
   @Test
-  @Order(5)
   void testGetByFirstName() throws Exception {
     this.mockMvc.perform(
             get("/students/first_name/{first_name}", entity.getFirstName())
@@ -127,7 +158,6 @@ public class StudentEndpointTests {
   }
 
   @Test
-  @Order(6)
   void testGetByLastName() throws Exception {
     this.mockMvc.perform(
             get("/students/last_name/{last_name}", entity.getLastName())
@@ -138,7 +168,6 @@ public class StudentEndpointTests {
   }
 
   @Test
-  @Order(7)
   void testGetByEmail() throws Exception {
     this.mockMvc.perform(
             get("/students/email/{email}", entity.getEmail())
@@ -149,7 +178,6 @@ public class StudentEndpointTests {
   }
 
   @Test
-  @Order(8)
   void testGetByPersonalNumber() throws Exception {
     this.mockMvc.perform(
             get("/students/personal_number/{personal_number}", entity.getPersonalNumber())
@@ -160,39 +188,49 @@ public class StudentEndpointTests {
   }
 
   @Test
-  @Order(9)
   void testGetByBirthDay() throws Exception {
     this.mockMvc.perform(
             get("/students/birthday/{birthday}",
-                entity.getBirthday().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")))
+                entity.getBirthday().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.students", hasSize(2)))
+                .andExpect(jsonPath("$.students", hasSize(greaterThanOrEqualTo(2))))
                 .andReturn();
   }
 
   @Test
-  @Order(10)
   void testUpdate() throws Exception {
-    entity.setFirstName("changed");
+    entityToUpdate.setFirstName("changed");
     this.mockMvc.perform(
-            put("/students/{id}", entity.getId())
+            put("/students/{id}", entityToUpdate.getId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(this.objectMapper.writeValueAsString(entity)))
+                .content(this.objectMapper.writeValueAsString(entityToUpdate)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.first_name").value("changed"))
                 .andReturn();
   }
 
   @Test
-  @Order(11)
-  void testDelete() throws Exception {
+  void testStudentCourses() throws Exception {
+    courseService.addStudentToCourse(courseEntity.getId(), entity.getId());
     this.mockMvc.perform(
-            delete("/students/{id}", entity.getId())
+            get("/students/{id}/courses", entity.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(this.objectMapper.writeValueAsString(entity)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.student_id").value(entity.getId().toString()))
+                .andReturn();
+    assertTrue(studentService.getStudentCourses(entity.getId()).getCourses().stream().anyMatch(
+        x -> Objects.equals(x.getNumber(), courseEntity.getNumber())));
+  }
+
+  @Test
+  void testDelete() throws Exception {
+    this.mockMvc.perform(
+            delete("/students/{id}", entityToDelete.getId())
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(this.objectMapper.writeValueAsString(entityToDelete)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.student_id").value(entityToDelete.getId().toString()))
                 .andReturn();
   }
 

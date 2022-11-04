@@ -1,15 +1,16 @@
 package com.softgen.demo.entities;
 
+import java.util.HashSet;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Set;
 import lombok.Setter;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity(name = "CourseEntity")
 @Getter
@@ -46,7 +47,7 @@ public class CourseEntity {
       name = "student_course",
       joinColumns = @JoinColumn(name = "course_id"),
       inverseJoinColumns = @JoinColumn(name = "student_id"))
-  Set<StudentEntity> students;
+  Set<StudentEntity> students = new HashSet<>();
 
   // აქ ჩავთვალე რომ ერთ ჯგუფს/კურსს შეიძლება რამდენიმე მასწავლებელი ყავდეს
   @ManyToMany
@@ -54,7 +55,7 @@ public class CourseEntity {
       name = "teacher_course",
       joinColumns = @JoinColumn(name = "course_id"),
       inverseJoinColumns = @JoinColumn(name = "teacher_id"))
-  Set<TeacherEntity> teachers;
+  Set<TeacherEntity> teachers = new HashSet<>();
 
   public void addStudent(StudentEntity student) {
     this.students.add(student);

@@ -19,8 +19,10 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class TeacherServiceImpl implements TeacherService {
 

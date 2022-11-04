@@ -64,7 +64,7 @@ public class StudentController {
 
   @GetMapping("/birthday/{birthday}")
   public StudentListResponse getStudentByBirthDay(
-      @PathVariable("birthday") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate birthday
+      @PathVariable("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday
                                                  ) {
     return studentService.getStudentByBirthday(birthday);
   }

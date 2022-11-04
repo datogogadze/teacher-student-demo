@@ -1,9 +1,7 @@
 package com.softgen.demo.converters;
 
 import com.softgen.demo.dtos.CourseDto;
-import com.softgen.demo.dtos.TeacherDto;
 import com.softgen.demo.entities.CourseEntity;
-import com.softgen.demo.entities.TeacherEntity;
 
 public class CourseConverter {
 

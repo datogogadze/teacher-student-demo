@@ -64,7 +64,7 @@ public class TeacherController {
 
   @GetMapping("/birthday/{birthday}")
   public TeacherListResponse getTeacherByBirthDay(
-      @PathVariable("birthday") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate birthday
+      @PathVariable("birthday") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate birthday
                                                  ) {
     return teacherService.getTeacherByBirthday(birthday);
   }

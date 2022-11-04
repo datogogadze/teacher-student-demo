@@ -48,6 +48,6 @@ public class TeacherDto {
 
   @NotNull
   @JsonProperty("birthday")
-  @JsonFormat(pattern = "dd-MM-yyyy")
+  @JsonFormat(pattern = "yyyy-MM-dd")
   private LocalDate birthday;
 }
